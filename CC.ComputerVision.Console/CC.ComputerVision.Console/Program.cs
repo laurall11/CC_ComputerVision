@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CVConsole
+namespace CC.ComputerVision.Console
 {
     class Program
     {
