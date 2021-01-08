@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Linq;
 
-namespace CC.ComputerVision.BackendConsole
+namespace CC.AzureVision.BackendConsole
 {
     class Program
     {
