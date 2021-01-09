@@ -10,7 +10,7 @@ export class UploadService {
   constructor(private http: HttpClient) { }
 
   upload(fileToUpload: File): Observable<File> {
-    const endpoint = 'your-destination-url';
+    const endpoint = 'https://localhost:44336/api/analyzeImage';
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.http.post<File>(endpoint, formData);
