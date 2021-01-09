@@ -13,10 +13,8 @@ export class AppComponent {
   fileToUpload: any = null;
   resultFiles : any[] = [];
 
-onFileUpload(evFiles: Event){
-  this.fileToUpload = evFiles.target;
-  this.fileToUpload = this.fileToUpload.files.item(0);
-  console.log(this.fileToUpload);
+onFileUpload(files: FileList){
+  this.fileToUpload = files.item(0);
   this.uploadService
     .upload(this.fileToUpload)
     .subscribe(result => this.resultFiles.push(result));
