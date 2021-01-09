@@ -20,6 +20,6 @@ export class UploadService {
     const endpoint = 'https://localhost:44336/api/analyzeImage';
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    return this.http.post<File>(endpoint, formData);
+    return this.http.post<File>(endpoint, formData, httpOptions);
   }
 }
