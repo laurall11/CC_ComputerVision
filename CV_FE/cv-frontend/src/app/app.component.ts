@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UploadService} from './upload.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private uploadService: UploadService) { }
+
   title = 'cv-frontend';
+  fileToUpload: any = null;
+  resultFiles : any[] = [];
+
+onFileUpload(files: FileList){
+  this.fileToUpload = files.item(0);
+  this.uploadService
+    .upload(this.fileToUpload)
+    .subscribe(result => this.resultFiles.push(result));
+}
+
 }
