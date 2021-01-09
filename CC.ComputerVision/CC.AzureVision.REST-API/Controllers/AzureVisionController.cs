@@ -10,6 +10,7 @@ namespace CC.AzureVision.REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors(origins: "http://localhost:4200", headers: "accept", methods: "*")]
     public class AzureVisionController : ControllerBase
     {
         [EnableCors]
