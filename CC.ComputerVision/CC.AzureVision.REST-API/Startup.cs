@@ -15,7 +15,6 @@ namespace CC.AzureVision.REST_API
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public Startup(IConfiguration configuration)
         {
@@ -29,7 +28,7 @@ namespace CC.AzureVision.REST_API
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
+                options.AddDefaultPolicy(
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:4200")
@@ -53,7 +52,7 @@ namespace CC.AzureVision.REST_API
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
 
             app.UseAuthorization();
 
