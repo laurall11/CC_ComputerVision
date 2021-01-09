@@ -152,7 +152,7 @@
     <p>Lade dein Bild hier hoch, um eine Analyse von Azure Vision zu erhalten.</p>
 
     <div class="card-container">
-        <input type="file" name="uploadfile" id="img-upload" (change)="onFileUpload($event.target.files)" />
+        <input type="file" name="uploadfile" id="img-upload" (change)="onFileUpload($event)" />
         <audio controls>
             <source src="./assets/audio/piano2.wav" type="audio/wav">
             Sorry - Ihr Browser hat keine Unterstützung für dieses Audio-Format.
