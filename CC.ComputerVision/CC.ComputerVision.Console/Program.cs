@@ -14,8 +14,8 @@ namespace CC.AzureVision.BackendConsole
     class Program
     {
         // Add your Computer Vision subscription key and endpoint
-        static string subscriptionKey = Environment.GetEnvironmentVariable("78556231cd4c409a928718285db5316c");
-        static string endpoint = Environment.GetEnvironmentVariable("https://ccsp.cognitiveservices.azure.com/");
+        public static string subscriptionKey = "78556231cd4c409a928718285db5316c";
+        public static string endpoint = "https://ccsp.cognitiveservices.azure.com/";
 
         // URL image used for analyzing an image (image of puppy)
         private const string ANALYZE_URL_IMAGE = "https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png";
