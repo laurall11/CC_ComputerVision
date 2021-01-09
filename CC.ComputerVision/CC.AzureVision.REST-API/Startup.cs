@@ -33,7 +33,7 @@ namespace CC.AzureVision.REST_API
                                   {
                                       builder.WithOrigins("http://localhost:4200")
                                             .AllowAnyHeader()
-                                            .AllowAnyMethod(); ;
+                                            .AllowAnyMethod();
                                   });
             });
 
