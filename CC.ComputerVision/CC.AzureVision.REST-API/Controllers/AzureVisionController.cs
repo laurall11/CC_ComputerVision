@@ -48,12 +48,5 @@ namespace CC.AzureVision.REST_API.Controllers
 
             return Ok(new { count = file.Count, size });
         }
-
-
-        public string AnalzyeImage()
-        {
-            IFormCollection test = Request.Form;
-            return "hallo";
-        }
     }
 }

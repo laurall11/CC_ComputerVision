@@ -18,7 +18,7 @@ namespace CC.AzureVision.BackendConsole
         public static string endpoint = "https://ccsp.cognitiveservices.azure.com/";
 
         // URL image used for analyzing an image (image of puppy)
-        private const string ANALYZE_URL_IMAGE = "https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png";
+        private const string ANALYZE_URL_IMAGE = "C:\\Users\\Flo\\AppData\\Local\\Temp\\tmpB172.png";
 
         static void Main(string[] args)
         {
