@@ -25,7 +25,7 @@ namespace CC.AzureVision.REST_API.Controllers
         }
 
         [HttpPost("/api/analyzeImage")]
-        public string AnalzyeImage([FromBody] object image)
+        public string AnalzyeImage([FromForm] object image)
         {
             return "hallo";
         }
