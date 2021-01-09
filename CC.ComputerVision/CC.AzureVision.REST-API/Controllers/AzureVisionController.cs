@@ -11,10 +11,23 @@ namespace CC.AzureVision.REST_API.Controllers
     [ApiController]
     public class AzureVisionController : ControllerBase
     {
-        [HttpPost("/api/analyzeImage")]
-        public void AnalzyeImage()
+
+        [HttpGet()]
+        public string Test()
         {
-            
+            return "hallo";
+        }
+
+        [HttpGet("/api/test")]
+        public string Test2()
+        {
+            return "halloTest";
+        }
+
+        [HttpPost("/api/analyzeImage")]
+        public string AnalzyeImage([FromBody] object image)
+        {
+            return "hallo";
         }
     }
 }
