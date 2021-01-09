@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'multipart/form-data'
+    'Content-Type': 'image/*'
   })
 };
 
