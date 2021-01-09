@@ -7,6 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="6.0.0" />
+    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.14.0" />
+    <PackageReference Include="Universal.Microsoft.CognitiveServices.Speech" Version="0.2.0" />
   </ItemGroup>
 
 </Project>
