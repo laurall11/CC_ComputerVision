@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CC.AzureVision.REST_API.Controllers
@@ -26,7 +27,7 @@ namespace CC.AzureVision.REST_API.Controllers
         }
 
         [HttpPost("/api/analyzeImage")]
-        public async Task<IActionResult> OnPostUploadAsync([FromForm] List<IFormFile> file)
+        public HttpResponseMessage OnPostUploadAsync([FromForm] List<IFormFile> file)
         {
             long size = file.Sum(f => f.Length);
 
@@ -38,15 +39,29 @@ namespace CC.AzureVision.REST_API.Controllers
 
                     using (var stream = System.IO.File.Create(filePath))
                     {
-                        await formFile.CopyToAsync(stream);
+                        formFile.CopyToAsync(stream);
                     }
                 }
             }
 
+
+            //converting .wav file into bytes array  
+            var dataBytes = System.IO.File.ReadAllBytes("C:\\Users\\laura\\OneDrive\\Dokumente\\FH Technikum\\Semester\\5. Semester\\CC\\CV_Projekt_FE_BE\\CC_ComputerVision\\CC.ComputerVision\\CC.AzureVision.REST-API\\Controllers\\piano2.wav");
+
+            //adding bytes to memory stream   
+            var dataStream = new MemoryStream(dataBytes);
+
+            HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
+            httpResponseMessage.Content = new StreamContent(dataStream);
+
+            httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            httpResponseMessage.Content.Headers.ContentDisposition.FileName = "test";
+            httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+
             // Process uploaded files
             // Don't rely on or trust the FileName property without validation.
 
-            return Ok(new { count = file.Count, size });
+            return httpResponseMessage;
         }
     }
 }
