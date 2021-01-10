@@ -9,10 +9,10 @@ import { catchError, retry } from 'rxjs/operators';
 export class UploadService {
   constructor(private http: HttpClient) { }
 
-  upload(fileToUpload: File): Observable<File> {
+  upload(fileToUpload: File): Observable<any> {
     const endpoint = 'https://localhost:44336/api/analyzeImage';
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-    return this.http.post<File>(endpoint, formData);
+    return this.http.post(endpoint, formData, {responseType: "blob"});
   }
 }

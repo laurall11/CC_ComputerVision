@@ -12,14 +12,21 @@ export class AppComponent {
   title = 'cv-frontend';
   fileToUpload: any = null;
   resultFiles : any[] = [];
+  audioCtx = new window.AudioContext();
+  context = new AudioContext();
 
 onFileUpload(files: Event){
   this.fileToUpload = files.target;
   this.fileToUpload = this.fileToUpload.files.item(0);
-  console.log(this.fileToUpload);
   this.uploadService
     .upload(this.fileToUpload)
-    .subscribe(result => this.resultFiles.push(result));
+    .subscribe(result => {
+
+      this.context.decodeAudioData(result as ArrayBuffer).then(function (decodedData) {
+        console.log(decodedData);
+      });
+
+      this.resultFiles.push(result)});
 }
 
 }
