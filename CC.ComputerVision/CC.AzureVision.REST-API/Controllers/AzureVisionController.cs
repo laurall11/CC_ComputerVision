@@ -4,29 +4,31 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace CC.AzureVision.REST_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
     public class AzureVisionController : ControllerBase
     {
 
-        [HttpGet()]
+        [Microsoft.AspNetCore.Mvc.HttpGet()]
         public string Test()
         {
             return "hallo";
         }
 
-        [HttpGet("/api/test")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("/api/test")]
         public string Test2()
         {
             return "halloTest";
         }
 
-        [HttpPost("/api/analyzeImage")]
+        [Microsoft.AspNetCore.Mvc.HttpPost("/api/analyzeImage")]
         public HttpResponseMessage AnalyzeImage([FromForm] List<IFormFile> file)
         {
             long size = file.Sum(f => f.Length);
@@ -53,6 +55,7 @@ namespace CC.AzureVision.REST_API.Controllers
 
             //adding bytes to memory stream   
             var dataStream = new MemoryStream(dataBytes);
+
 
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
             httpResponseMessage.Content = new StreamContent(dataStream);
