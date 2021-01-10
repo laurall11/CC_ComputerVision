@@ -27,7 +27,7 @@ namespace CC.AzureVision.REST_API.Controllers
         }
 
         [HttpPost("/api/analyzeImage")]
-        public HttpResponseMessage OnPostUploadAsync([FromForm] List<IFormFile> file)
+        public HttpResponseMessage AnalyzeImage([FromForm] List<IFormFile> file)
         {
             long size = file.Sum(f => f.Length);
             string path = "";
@@ -41,7 +41,7 @@ namespace CC.AzureVision.REST_API.Controllers
 
                     using (var stream = System.IO.File.Create(filePath))
                     {
-                        formFile.CopyToAsync(stream);
+                        formFile.CopyToAsync(stream).Wait();
                     }
                 }
             }
@@ -49,7 +49,7 @@ namespace CC.AzureVision.REST_API.Controllers
             Program.AnalyzeLocalImageFromApi(path);
 
             //converting .wav file into bytes array  
-            var dataBytes = System.IO.File.ReadAllBytes("C:\\Users\\laura\\OneDrive\\Dokumente\\FH Technikum\\Semester\\5. Semester\\CC\\CV_Projekt_FE_BE\\CC_ComputerVision\\CC.ComputerVision\\CC.AzureVision.REST-API\\Controllers\\piano2.wav");
+            var dataBytes = System.IO.File.ReadAllBytes(System.AppDomain.CurrentDomain.BaseDirectory + @"hello.mp3");
 
             //adding bytes to memory stream   
             var dataStream = new MemoryStream(dataBytes);
