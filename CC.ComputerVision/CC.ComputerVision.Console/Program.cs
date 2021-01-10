@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CC.AzureVision.BackendConsole
 {
@@ -22,7 +24,7 @@ namespace CC.AzureVision.BackendConsole
 
         // URL image used for analyzing an image (image of puppy)
         private const string ANALYZE_URL_IMAGE = "C:\\Users\\Flo\\Downloads\\test.jpg";
-        private const string ANALYZE_LOCAL_IMAGE = "C:\\Users\\Flo\\AppData\\Local\\Temp\\tmpB172.tmp";
+        private const string ANALYZE_LOCAL_IMAGE = "C:\\Users\\Flo\\Downloads\\wieso.jpg";
 
         static void Main(string[] args)
         {
@@ -31,26 +33,162 @@ namespace CC.AzureVision.BackendConsole
             // Create a client
             ComputerVisionClient client = Authenticate(endpoint, subscriptionKey);
 
-            // Analyze an image to get features and other properties.
-
-            // AnalyzeImageLocal(client, ANALYZE_LOCAL_IMAGE).Wait();
-
-            // AnalyzeImageUrl(client, ANALYZE_URL_IMAGE).Wait();
-            // Extract text (OCR) from a URL image using the Read API
-            // ReadFileUrl(client, READ_TEXT_URL_IMAGE).Wait();
-            // Extract text (OCR) from a local image using the Read API
-            // ReadFileLocal(client, READ_TEXT_LOCAL_IMAGE).Wait();
-
             AnalyzeLocalImageFromApi(ANALYZE_LOCAL_IMAGE);
         }
 
-        public static string AnalyzeLocalImageFromApi(string filePath)
+        public static void AnalyzeLocalImageFromApi(string filePath)
         {
             ComputerVisionClient client = Authenticate(endpoint, subscriptionKey);
 
             AnalyzeImageLocal(client, filePath).Wait();
 
-            return result.ToString();
+            string resultString = "In this picture is " + result.Description.Captions[0].Text;
+
+            if (result.Description.Tags.Count > 1)
+            {
+                int cnt = 0;
+                resultString = resultString + ". The tags for this image are ";
+                foreach (var tag in result.Description.Tags)
+                {
+                    resultString = resultString + tag;
+                    cnt++;
+                    if (cnt < result.Description.Tags.Count)
+                    {
+                        resultString = resultString + " and ";
+                    }
+                }
+            }
+            else
+            {
+                resultString = resultString + ". The tag for this image is " + result.Description.Tags[0];
+            }
+
+            if (result.Categories.Count > 1)
+            {
+                int cnt = 0;
+                resultString = resultString + ". The categories which represent this image are ";
+                foreach (var category in result.Categories)
+                {
+                    resultString = resultString + category.Name.Replace("_", " ");
+                    cnt++;
+                    if (cnt < result.Categories.Count)
+                    {
+                        resultString = resultString + " and ";
+                    }
+                }
+            }
+            else
+            {
+                resultString = resultString + ". The category which represents this image is " + result.Categories[0].Name.Replace("_", " ");
+            }
+
+            if (result.Faces.Count > 1)
+            {
+                int cnt = 0;
+                resultString = resultString + ". There are " + result.Faces.Count + " faces in this image.";
+                foreach (var face in result.Faces)
+                {
+                    resultString = resultString + " There is a " + face.Gender + " Face with the age of " + face.Age;
+                    cnt++;
+                    if (cnt < result.Faces.Count)
+                    {
+                        resultString = resultString + " and ";
+                    }
+                    else
+                    {
+                        resultString = resultString + " in this image";
+                    }
+
+                }
+
+            }
+            else if (result.Faces.Count > 0)
+            {
+                resultString = resultString + ". There is one " + result.Faces[0].Gender + " face with the age of " + result.Faces[0].Age + " in this image";
+            }
+
+
+            resultString = resultString + ". The dominant color in the background is " +
+                           result.Color.DominantColorBackground;
+            resultString = resultString + ". The dominant color in the foreground is " +
+                           result.Color.DominantColorForeground;
+
+
+
+            if (result.Color.DominantColors.Count > 1)
+            {
+                string colorPrev = "";
+                int cnt = 0;
+                resultString = resultString + ". The dominant colors in this image are ";
+                foreach (var color in result.Color.DominantColors)
+                {
+                    if (!color.Equals(colorPrev))
+                    {
+                        resultString = resultString + color;
+                        colorPrev = color;
+                        cnt++;
+                        if (cnt < result.Color.DominantColors.Count)
+                        {
+                            resultString = resultString + " and ";
+                        }
+
+                    }
+                }
+            }
+            else if (result.Color.DominantColors.Count > 0)
+            {
+                resultString = resultString + ". The dominant color in this image is " + result.Color.DominantColors[0];
+            }
+
+            if (result.Brands.Count > 0)
+            {
+                string brandPrev = "";
+                foreach (var brand in result.Brands)
+                {
+                    if (!brand.Name.Equals(brandPrev))
+                    {
+                        resultString = resultString + ". This image contains information for the brand " + brand.Name;
+                        brandPrev = brand.Name;
+                    }
+                }
+            }
+            else
+            {
+                resultString = resultString + ". This image contains no brand information";
+            }
+
+            if (result.Adult.IsAdultContent)
+            {
+                resultString = resultString + ". This image contains adult content";
+            }
+            else
+            {
+                resultString = resultString + ". This image contains no adult content";
+            }
+
+            if (result.Adult.IsGoryContent)
+            {
+                resultString = resultString + ". This image contains gory content";
+            }
+            else
+            {
+                resultString = resultString + ". This image contains no gory content";
+            }
+
+            if (result.Adult.IsRacyContent)
+            {
+                resultString = resultString + ". This image contains racy content";
+            }
+            else
+            {
+                resultString = resultString + ". This image contains no racy content";
+            }
+
+
+
+            SynthesizeAudioAsync(resultString).Wait();
+
+            Console.WriteLine(resultString);
         }
 
         //Authenticate Client
@@ -118,7 +256,7 @@ namespace CC.AzureVision.BackendConsole
                 ImageAnalysis results = await client.AnalyzeImageInStreamAsync(analyzeImageStream, features);
 
                 result = results;
-                
+
                 Console.WriteLine(results);
             }
 
@@ -129,7 +267,8 @@ namespace CC.AzureVision.BackendConsole
             string subscription = "9452bdccf9f54506afb6c7affd3067bd";
             string region = "westeurope";
             var config = SpeechConfig.FromSubscription(subscription, region);
-            using var audioConfig = AudioConfig.FromWavFileOutput(System.AppDomain.CurrentDomain.BaseDirectory + @"hello.wav"); //Path to File
+            config.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Audio24Khz96KBitRateMonoMp3);
+            using var audioConfig = AudioConfig.FromWavFileOutput(System.AppDomain.CurrentDomain.BaseDirectory + @"hello.mp3"); //Path to File
             using var synthesizer = new SpeechSynthesizer(config, audioConfig); //using for saving a file
             //using var synthesizer = new SpeechSynthesizer(config); //using without saving a file
 

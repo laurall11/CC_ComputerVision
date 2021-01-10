@@ -26,27 +26,28 @@ namespace CC.AzureVision.REST_API.Controllers
         }
 
         [HttpPost("/api/analyzeImage")]
-        public async Task<IActionResult> OnPostUploadAsync([FromForm] List<IFormFile> file)
+        public string OnPostUploadAsync([FromForm] List<IFormFile> file)
         {
             long size = file.Sum(f => f.Length);
+            string path = "";
 
             foreach (var formFile in file)
             {
                 if (formFile.Length > 0)
                 {
                     var filePath = Path.GetTempFileName();
+                    path = filePath;
 
                     using (var stream = System.IO.File.Create(filePath))
                     {
-                        await formFile.CopyToAsync(stream);
+                        formFile.CopyToAsync(stream).Wait();
                     }
                 }
             }
 
-            // Process uploaded files
-            // Don't rely on or trust the FileName property without validation.
+            Program.AnalyzeLocalImageFromApi(path);
 
-            return Ok(new { count = file.Count, size });
+            return "hurensohn";
         }
     }
 }
