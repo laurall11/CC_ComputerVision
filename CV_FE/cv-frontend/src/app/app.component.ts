@@ -22,8 +22,12 @@ onFileUpload(files: Event){
     .upload(this.fileToUpload)
     .subscribe(result => {
 
-      this.context.decodeAudioData(result as ArrayBuffer).then(function (decodedData) {
-        console.log(decodedData);
+      result.arrayBuffer().then((resultat: ArrayBuffer) =>{
+
+        this.audioCtx.decodeAudioData(resultat).then(function (decodedData) {
+          console.log(decodedData);
+        });
+
       });
 
       this.resultFiles.push(result)});
