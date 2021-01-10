@@ -46,6 +46,7 @@ namespace CC.AzureVision.REST_API.Controllers
                 }
             }
 
+            Program.AnalyzeLocalImageFromApi(path);
 
             //converting .wav file into bytes array  
             var dataBytes = System.IO.File.ReadAllBytes("C:\\Users\\laura\\OneDrive\\Dokumente\\FH Technikum\\Semester\\5. Semester\\CC\\CV_Projekt_FE_BE\\CC_ComputerVision\\CC.ComputerVision\\CC.AzureVision.REST-API\\Controllers\\piano2.wav");
