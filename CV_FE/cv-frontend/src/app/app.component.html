@@ -48,6 +48,7 @@
         max-width: 960px;
         flex-direction: column;
         align-items: center;
+        border-radius: 15px;
     }
     
     .card-container {
@@ -119,6 +120,12 @@
     a:hover {
         color: #125699;
     }
+    
+    button#upload-btn {
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: #99aebd;
+    }
     /* Responsive Styles */
     
     @media screen and (max-width: 767px) {
@@ -147,19 +154,15 @@
     }
 </style>
 
-<!-- Header -->
-<div class="toolbar" role="banner">
-    Welcome to the CV Frontend!
-</div>
-
-<div class="content" role="main">
+<div class="content" role="main" style="background-color: #ededed">
 
     <!-- Upload -->
     <h1>Bild Upload</h1>
     <p>Lade dein Bild hier hoch, um eine Analyse von Azure Vision zu erhalten.</p>
 
     <div class="card-container">
-        <input type="file" name="uploadfile" id="img-upload" (change)="onFileUpload($event)" />
+        <input type="file" name="uploadfile" id="img-upload" (change)="onFileUpload($event)" style="display: none;" />
+        <button id="upload-btn"><label for="img-upload">Upload starten</label></button>
     </div>
     <div class="card-container" id="loadingNotif" style="display: none;">
         <p>Ihr Audio wird geladen...</p>
