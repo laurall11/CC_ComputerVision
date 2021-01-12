@@ -43,6 +43,11 @@ onFileUpload(files: Event){
     .downloadDescrition()
     .subscribe(resultDescription => {
       console.log(resultDescription);
+
+        var textField = document.getElementById("description");
+        if (textField != null)
+        textField.innerText = resultDescription;
+
     });
 
     this.uploadService
