@@ -19,6 +19,8 @@ namespace CC.AzureVision.REST_API.Controllers
     [ApiController]
     public class AzureVisionController : ControllerBase
     {
+        private static string resultString;
+
         [Microsoft.AspNetCore.Mvc.HttpGet("/api/AzureVision")]
         public void Test()
         {
@@ -34,6 +36,15 @@ namespace CC.AzureVision.REST_API.Controllers
             String fileName = System.AppDomain.CurrentDomain.BaseDirectory + @"hello.wav";
 
             return Response.SendFileAsync(fileName);
+        }
+
+        [Microsoft.AspNetCore.Mvc.HttpGet("/api/getDescription")]
+        public Task SendDescription()
+        {
+
+            Response.ContentType = "text/plain";
+
+            return Response.WriteAsync("hallotesttest");
         }
 
 
@@ -56,7 +67,7 @@ namespace CC.AzureVision.REST_API.Controllers
                 }
             }
 
-            Program.AnalyzeLocalImageFromApi(path);
+            resultString = Program.AnalyzeLocalImageFromApi(path);
         }
     }
 }

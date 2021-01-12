@@ -19,4 +19,8 @@ export class UploadService {
   downloadAudio(){
     return this.http.get('http://localhost:59089/api/getAudio', {responseType: "blob"});
   }
+
+  downloadDescrition(){
+    return this.http.get('http://localhost:59089/api/getDescription');
+  }
 }

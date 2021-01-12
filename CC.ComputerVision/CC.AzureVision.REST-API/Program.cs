@@ -45,7 +45,7 @@ namespace CC.AzureVision.REST_API
                     webBuilder.UseStartup<Startup>();
                 });
 
-        public static void AnalyzeLocalImageFromApi(string filePath)
+        public static string AnalyzeLocalImageFromApi(string filePath)
         {
             ComputerVisionClient client = Authenticate(endpoint, subscriptionKey);
 
@@ -198,6 +198,8 @@ namespace CC.AzureVision.REST_API
             SynthesizeAudioAsync(resultString).Wait();
 
             Console.WriteLine(resultString);
+
+            return resultString;
         }
 
         //Authenticate Client
