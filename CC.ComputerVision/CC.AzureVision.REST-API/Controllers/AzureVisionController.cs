@@ -24,16 +24,35 @@ namespace CC.AzureVision.REST_API.Controllers
             return "hallo";
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpGet("/api/test")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("/api/getAudio")]
         public string Test2()
         {
             return "halloTest";
+
+            string fileDestination =
+                System.AppDomain.CurrentDomain.BaseDirectory + @"hello.mp3";
+
+
+            //converting .wav file into bytes array  
+            var dataBytes = System.IO.File.ReadAllBytes(fileDestination);
+
+            HttpResponseMessage response = null;
+
+
+            response = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new ByteArrayContent(dataBytes)
+            };
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = "hello.wav";
+            //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            response.Content.Headers.ContentLength = dataBytes.Length;
         }
 
         [Microsoft.AspNetCore.Mvc.HttpPost("/api/analyzeImage")]
-        public HttpResponseMessage AnalyzeImage([FromForm] List<IFormFile> file)
+        public void AnalyzeImage([FromForm] List<IFormFile> file)
         {
-            long size = file.Sum(f => f.Length);
             string path = "";
 
             foreach (var formFile in file)
@@ -53,7 +72,7 @@ namespace CC.AzureVision.REST_API.Controllers
             Program.AnalyzeLocalImageFromApi(path);
 
             string fileDestination =
-                System.AppDomain.CurrentDomain.BaseDirectory + @"hello.wav";
+                System.AppDomain.CurrentDomain.BaseDirectory + @"hello.mp3";
 
 
             //converting .wav file into bytes array  
@@ -72,7 +91,7 @@ namespace CC.AzureVision.REST_API.Controllers
             //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             response.Content.Headers.ContentLength = dataBytes.Length;
 
-            return response;
+            //return response;
         }
     }
 }

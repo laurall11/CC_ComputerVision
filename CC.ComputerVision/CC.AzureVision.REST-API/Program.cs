@@ -86,7 +86,7 @@ namespace CC.AzureVision.REST_API
                     }
                 }
             }
-            else
+            else if (result.Categories.Count > 0)
             {
                 resultString = resultString + ". The category which represents this image is " + result.Categories[0].Name.Replace("_", " ");
             }

@@ -33,41 +33,49 @@ onFileUpload(files: Event){
     .upload(this.fileToUpload)
     .subscribe(result => {
 
-      var audioCtx = new window.AudioContext();
-        var hm = audioCtx.decodeAudioData(result).then(function (decodedData) {
-          console.log(decodedData);
-        });
+      console.log(result);
+      
+      //GET REQUEST?
 
-      this.resultFiles.push(result)});
+      var test = this.uploadService.download();
+
+      // var audioCtx = new window.AudioContext();
+      //   var hm = audioCtx.decodeAudioData(result.proto).then(function (decodedData) {
+      //     console.log(decodedData);
+      //   });
+
+      // this.resultFiles.push(result)
+    });
     }
     
-    test(files) {
+  //   test(files) {
       
-      let buffer = new ArrayBuffer(1210892);
-      let audioCtx = new window.AudioContext();
-      let context = new AudioContext();
+  //     let buffer = new ArrayBuffer(1210892);
+  //     let audioCtx = new window.AudioContext();
+  //     let context = new AudioContext();
 
       
-      this.fileToUpload = files.target;
-      this.fileToUpload = this.fileToUpload.files.item(0);
+  //     this.fileToUpload = files.target;
+  //     this.fileToUpload = this.fileToUpload.files.item(0);
 
     
-      let reader = new FileReader();
+  //     let reader = new FileReader();
       
     
-      reader.readAsArrayBuffer(this.fileToUpload);
+  //     reader.readAsArrayBuffer(this.fileToUpload);
 
-      reader.onload = function() {
-        console.log(reader.result);
-        buffer = reader.result as ArrayBuffer;
-        audioCtx.decodeAudioData(buffer).then(function (decodedData) {
-          console.log(decodedData)
-      });
+  //     reader.onload = function() {
+  //       console.log(reader.result);
+  //       buffer = reader.result as ArrayBuffer;
+  //       audioCtx.decodeAudioData(buffer).then(function (decodedData) {
+  //         console.log(decodedData)
+          
+  //     });
       
-      reader.onerror = function() {
-        console.log(reader.error);
-      };
+  //     reader.onerror = function() {
+  //       console.log(reader.error);
+  //     };
       
-    }
-  }
+  //   }
+  // }
   }

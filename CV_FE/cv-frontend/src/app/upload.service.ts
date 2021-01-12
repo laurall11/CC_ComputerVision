@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 const httpOptions = {
-  responseType: "blob" as const
+  responseType: "arraybuffer" as const
 };
 
 @Injectable({
@@ -18,5 +18,9 @@ export class UploadService {
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.http.post(endpoint, formData, httpOptions);
+  }
+
+  download() {
+    return this.http.get('http://localhost:59089/api/getAudio');
   }
 }
