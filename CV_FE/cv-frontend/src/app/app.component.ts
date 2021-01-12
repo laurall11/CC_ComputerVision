@@ -39,45 +39,45 @@ onFileUpload(files: Event){
 
       this.getFiles();
 
-      // var audioCtx = new window.AudioContext();
-      //   var hm = audioCtx.decodeAudioData(result.proto).then(function (decodedData) {
-      //     console.log(decodedData);
-      //   });
+       var audioCtx = new window.AudioContext();
+         var hm = audioCtx.decodeAudioData(result.proto).then(function (decodedData) {
+           console.log(decodedData);
+         });
 
-      // this.resultFiles.push(result)
+       this.resultFiles.push(result)
     });
     }
     
-    // test(files: { target: any; }) {
+     test(files: { target: any; }) {
       
-  //     let buffer = new ArrayBuffer(1210892);
-  //     let audioCtx = new window.AudioContext();
-  //     let context = new AudioContext();
-
+       let buffer = new ArrayBuffer(1210892);
+       let audioCtx = new window.AudioContext();
+       var source = audioCtx.createBufferSource();
       
-  //     this.fileToUpload = files.target;
-  //     this.fileToUpload = this.fileToUpload.files.item(0);
+       this.fileToUpload = files.target;
+       this.fileToUpload = this.fileToUpload.files.item(0);
 
     
-  //     let reader = new FileReader();
+       let reader = new FileReader();
       
     
-  //     reader.readAsArrayBuffer(this.fileToUpload);
+       reader.readAsArrayBuffer(this.fileToUpload);
 
-  //     reader.onload = function() {
-  //       console.log(reader.result);
-  //       buffer = reader.result as ArrayBuffer;
-  //       audioCtx.decodeAudioData(buffer).then(function (decodedData) {
-  //         console.log(decodedData)
-          
-  //     });
+       reader.onload = function() {
+         buffer = reader.result as ArrayBuffer;
+         audioCtx.decodeAudioData(buffer, function (buff) {
+           console.log(buff);
+           source.buffer = buff;
+           source.connect(audioCtx.destination);
+           source.loop = true;
+           source.start(0);
+       });
       
-  //     reader.onerror = function() {
-  //       console.log(reader.error);
-  //     };
-      
-  //   }
-  // }
+       reader.onerror = function() {
+         console.log(reader.error);
+       };
+     }
+   }
 
   getFiles() {
     this.uploadService
