@@ -17,6 +17,6 @@ export class UploadService {
   }
 
   downloadAudio(){
-    return this.http.get('http://localhost:59089/api/AzureVision2', {responseType: "blob"});
+    return this.http.get('http://localhost:59089/api/getAudio', {responseType: "blob"});
   }
 }
