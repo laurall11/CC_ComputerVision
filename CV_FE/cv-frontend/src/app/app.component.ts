@@ -30,13 +30,13 @@ onFileUpload(files: Event){
   this.uploadService
     .upload(this.fileToUpload)
     .subscribe(result => {
-      this.getFiles();
+      this.getAudio();
     });
     }
 
-  getFiles() {
+  getAudio() {
     this.uploadService
-      .upload2()
+      .downloadAudio()
       .subscribe(getResult => {
         let reader = new FileReader();
         let audioCtxx = new window.AudioContext();
@@ -49,11 +49,9 @@ onFileUpload(files: Event){
           audioCtxx.decodeAudioData(bufferr, function (buff) {
             source.buffer = buff;
             source.connect(audioCtxx.destination);
-            source.loop = true;
             source.start(0);
           });
         }
-
       });
   }
   }
