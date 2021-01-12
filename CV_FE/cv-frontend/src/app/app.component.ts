@@ -41,4 +41,12 @@ onFileUpload(files: Event){
       this.resultFiles.push(result)});
 }
 
+getFiles(){
+  this.uploadService
+  .upload2()
+  .subscribe(result => {
+    console.log(result);
+  });
+}
+
 }

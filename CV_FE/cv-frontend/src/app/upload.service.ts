@@ -15,4 +15,8 @@ export class UploadService {
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.http.post(endpoint, formData, {responseType: "arraybuffer"});
   }
+
+  upload2(){
+    return this.http.get<ArrayBuffer>('https://localhost:44336/api/test');
+  }
 }
