@@ -14,6 +14,9 @@ export class AppComponent {
   resultFiles : any[] = [];
 
 onFileUpload(files: Event){
+
+  document.getElementById('loadingNotif')?.setAttribute('style', 'display: initial');
+
   this.fileToUpload = files.target;
   this.fileToUpload = this.fileToUpload.files.item(0);
 
@@ -41,15 +44,18 @@ onFileUpload(files: Event){
         let reader = new FileReader();
         let audioCtxx = new window.AudioContext();
         var source = audioCtxx.createBufferSource();
+        var audioplayer = document.getElementById('audioSrc');
 
         reader.readAsArrayBuffer(getResult);
         reader.onload = function () {
           console.log(reader.result);
-          var bufferr = reader.result as ArrayBuffer;
-          audioCtxx.decodeAudioData(bufferr, function (buff) {
+          var buffer = reader.result as ArrayBuffer;
+          audioCtxx.decodeAudioData(buffer, function (buff) {
             source.buffer = buff;
             source.connect(audioCtxx.destination);
-            source.start(0);
+            //audioplayer.src = buff;
+            //source.start(0);
+            document.getElementById('loadingNotif')?.setAttribute('style', 'display: none');
           });
         }
       });

@@ -153,10 +153,15 @@
 
     <div class="card-container">
         <input type="file" name="uploadfile" id="img-upload" (change)="onFileUpload($event)" />
-        <audio controls>
-            <source src="" type="audio/wav">
-            Sorry - Ihr Browser hat keine Unterstützung für dieses Audio-Format.
-        </audio>
+    </div>
+    <div class="card-container" id="loadingNotif" style="display: none;">
+        <p>Ihr Audio wird geladen...</p>
+    </div>
+    <div class="card-container">
+        <audio controls id="audioPlayer" style="display: none;">
+                <source src="" type="audio/wav" id="audioSrc">
+                Sorry - Ihr Browser hat keine Unterstützung für dieses Audio-Format.
+            </audio>
     </div>
     <div class="card-container">
         <img id="img-prev" />
