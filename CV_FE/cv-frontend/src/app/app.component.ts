@@ -8,7 +8,7 @@ import { UploadService} from './upload.service';
 })
 export class AppComponent {
   constructor(private uploadService: UploadService) { }
-
+  
   title = 'cv-frontend';
   fileToUpload: any = null;
   resultFiles : any[] = [];
@@ -39,14 +39,43 @@ onFileUpload(files: Event){
         });
 
       this.resultFiles.push(result)});
-}
+    }
+    
+    test(files: { target: any; }) {
+      
+      let buffer = new ArrayBuffer(1210892);
+      let audioCtx = new window.AudioContext();
+      let context = new AudioContext();
 
-getFiles(){
-  this.uploadService
-  .upload2()
-  .subscribe(result => {
-    console.log(result);
-  });
-}
+      
+      this.fileToUpload = files.target;
+      this.fileToUpload = this.fileToUpload.files.item(0);
 
-}
+    
+      let reader = new FileReader();
+      
+    
+      reader.readAsArrayBuffer(this.fileToUpload);
+
+      reader.onload = function() {
+        console.log(reader.result);
+        buffer = reader.result as ArrayBuffer;
+        audioCtx.decodeAudioData(buffer).then(function (decodedData) {
+          console.log(decodedData)
+      });
+      
+      reader.onerror = function() {
+        console.log(reader.error);
+      };
+      
+    }
+  }
+
+  getFiles() {
+    this.uploadService
+      .upload2()
+      .subscribe(result => {
+        console.log(result);
+      });
+  }
+  }

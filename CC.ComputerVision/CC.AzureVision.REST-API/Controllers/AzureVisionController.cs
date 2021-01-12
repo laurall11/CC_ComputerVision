@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace CC.AzureVision.REST_API.Controllers
@@ -50,24 +52,27 @@ namespace CC.AzureVision.REST_API.Controllers
 
             Program.AnalyzeLocalImageFromApi(path);
 
+            string fileDestination =
+                System.AppDomain.CurrentDomain.BaseDirectory + @"hello.wav";
+
+
             //converting .wav file into bytes array  
-            var dataBytes = System.IO.File.ReadAllBytes(System.AppDomain.CurrentDomain.BaseDirectory + @"hello.mp3");
+            var dataBytes = System.IO.File.ReadAllBytes(fileDestination);
 
-            //adding bytes to memory stream   
-            var dataStream = new MemoryStream(dataBytes);
+            HttpResponseMessage response = null;
 
 
-            HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
-            httpResponseMessage.Content = new StreamContent(dataStream);
+            response = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new ByteArrayContent(dataBytes)
+            };
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = "hello.wav";
+            //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            response.Content.Headers.ContentLength = dataBytes.Length;
 
-            httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            httpResponseMessage.Content.Headers.ContentDisposition.FileName = "test";
-            httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-
-            // Process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return httpResponseMessage;
+            return response;
         }
     }
 }

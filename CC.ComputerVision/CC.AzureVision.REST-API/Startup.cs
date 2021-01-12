@@ -31,9 +31,8 @@ namespace CC.AzureVision.REST_API
                 options.AddDefaultPolicy(
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:4200")
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
+                                      builder.AllowAnyHeader()
+                                            .AllowAnyMethod().AllowAnyOrigin();
                                   });
             });
 
