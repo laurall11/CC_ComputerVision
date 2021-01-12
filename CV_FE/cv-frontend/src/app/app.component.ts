@@ -48,7 +48,7 @@ onFileUpload(files: Event){
     });
     }
     
-  //   test(files) {
+    test(files: { target: any; }) {
       
   //     let buffer = new ArrayBuffer(1210892);
   //     let audioCtx = new window.AudioContext();
@@ -76,6 +76,14 @@ onFileUpload(files: Event){
   //       console.log(reader.error);
   //     };
       
-  //   }
-  // }
+    }
+  }
+
+  getFiles() {
+    this.uploadService
+      .upload2()
+      .subscribe(result => {
+        console.log(result);
+      });
+  }
   }
