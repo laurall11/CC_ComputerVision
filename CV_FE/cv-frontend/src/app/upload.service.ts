@@ -21,6 +21,6 @@ export class UploadService {
   }
 
   upload2(){
-    return this.http.get<ArrayBuffer>('https://localhost:44336/api/test');
+    return this.http.get<string>('http://localhost:59089/api/getAudio');
   }
 }

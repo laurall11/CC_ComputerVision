@@ -37,7 +37,7 @@ onFileUpload(files: Event){
       
       //GET REQUEST?
 
-      var test = this.uploadService.download();
+      this.getFiles();
 
       // var audioCtx = new window.AudioContext();
       //   var hm = audioCtx.decodeAudioData(result.proto).then(function (decodedData) {
@@ -48,7 +48,7 @@ onFileUpload(files: Event){
     });
     }
     
-    test(files: { target: any; }) {
+    // test(files: { target: any; }) {
       
   //     let buffer = new ArrayBuffer(1210892);
   //     let audioCtx = new window.AudioContext();
@@ -76,14 +76,14 @@ onFileUpload(files: Event){
   //       console.log(reader.error);
   //     };
       
-    }
-  }
+  //   }
+  // }
 
   getFiles() {
     this.uploadService
       .upload2()
-      .subscribe(result => {
-        console.log(result);
+      .subscribe(getResult => {
+        console.log(getResult);
       });
   }
   }

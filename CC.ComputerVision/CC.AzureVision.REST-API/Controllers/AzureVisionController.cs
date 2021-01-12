@@ -25,12 +25,11 @@ namespace CC.AzureVision.REST_API.Controllers
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("/api/getAudio")]
-        public string Test2()
+        public HttpResponseMessage Test2()
         {
-            return "halloTest";
 
             string fileDestination =
-                System.AppDomain.CurrentDomain.BaseDirectory + @"hello.mp3";
+                System.AppDomain.CurrentDomain.BaseDirectory + @"hello.wav";
 
 
             //converting .wav file into bytes array  
@@ -48,6 +47,8 @@ namespace CC.AzureVision.REST_API.Controllers
             response.Content.Headers.ContentDisposition.FileName = "hello.wav";
             //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             response.Content.Headers.ContentLength = dataBytes.Length;
+
+            return response;
         }
 
         [Microsoft.AspNetCore.Mvc.HttpPost("/api/analyzeImage")]
