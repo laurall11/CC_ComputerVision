@@ -12,29 +12,32 @@ export class AppComponent {
   title = 'cv-frontend';
   fileToUpload: any = null;
   resultFiles : any[] = [];
-  audioCtx = new window.AudioContext();
-  context = new AudioContext();
-  fr = new FileReader();
-  bf = new ArrayBuffer(1210892);
-  
-  
-  
-  onFileUpload(files: Event){
-    this.fileToUpload = files.target;
-    this.fileToUpload = this.fileToUpload.files.item(0);
-    this.uploadService
+
+onFileUpload(files: Event){
+  this.fileToUpload = files.target;
+  this.fileToUpload = this.fileToUpload.files.item(0);
+
+  //immediately display image on page after selecting
+  var reader = new FileReader();
+
+  reader.onload = function (e) {
+    var img = document.getElementById('img-prev');
+    img?.setAttribute('src', e.target?.result as string);
+    img?.setAttribute('style', 'max-height: 500px; max-width: 500px;');
+  }
+
+  reader.readAsDataURL(this.fileToUpload);
+
+  console.log(this.fileToUpload);
+  this.uploadService
     .upload(this.fileToUpload)
     .subscribe(result => {
-      
-      
-      
-      
-      this.audioCtx.decodeAudioData(result.data).then(function (decodedData) {
-        console.log(decodedData);
-      });
-      
-      
-      
+
+      var audioCtx = new window.AudioContext();
+        var hm = audioCtx.decodeAudioData(result).then(function (decodedData) {
+          console.log(decodedData);
+        });
+
       this.resultFiles.push(result)});
     }
     
