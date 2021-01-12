@@ -38,6 +38,13 @@ onFileUpload(files: Event){
     }
 
   getAudio() {
+
+    this.uploadService
+    .downloadDescrition()
+    .subscribe(resultDescription => {
+      console.log(resultDescription);
+    });
+
     this.uploadService
       .downloadAudio()
       .subscribe(getResult => {

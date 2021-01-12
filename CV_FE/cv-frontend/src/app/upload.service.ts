@@ -21,6 +21,6 @@ export class UploadService {
   }
 
   downloadDescrition(){
-    return this.http.get('http://localhost:59089/api/getDescription');
+    return this.http.get('http://localhost:59089/api/getDescription', {responseType: "text"});
   }
 }

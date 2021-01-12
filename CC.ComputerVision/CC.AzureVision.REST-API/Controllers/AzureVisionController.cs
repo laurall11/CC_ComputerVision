@@ -44,7 +44,7 @@ namespace CC.AzureVision.REST_API.Controllers
 
             Response.ContentType = "text/plain";
 
-            return Response.WriteAsync("hallotesttest");
+            return Response.WriteAsync(resultString);
         }
 
 
