@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -18,10 +19,26 @@ namespace CC.AzureVision.REST_API.Controllers
     public class AzureVisionController : ControllerBase
     {
 
-        [Microsoft.AspNetCore.Mvc.HttpGet()]
-        public string Test()
+        [Microsoft.AspNetCore.Mvc.HttpGet("/api/AzureVision2")]
+        public Task Test54()
         {
-            return "hallo";
+            Response.ContentType = "audio/wav";
+
+            String FileName;
+            FileStream MyFileStream;
+            FileName = System.AppDomain.CurrentDomain.BaseDirectory + @"hello.wav";
+
+            MyFileStream = new FileStream(FileName, FileMode.Open);
+
+            //MyFileStream.Close();
+
+            return Response.SendFileAsync(FileName);
+        }
+
+        [Microsoft.AspNetCore.Mvc.HttpGet("/api/AzureVision")]
+        public void Test()
+        {
+            //bla
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("/api/getAudio")]

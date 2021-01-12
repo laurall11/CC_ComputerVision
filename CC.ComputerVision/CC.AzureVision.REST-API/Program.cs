@@ -276,8 +276,8 @@ namespace CC.AzureVision.REST_API
             string subscription = "9452bdccf9f54506afb6c7affd3067bd";
             string region = "westeurope";
             var config = SpeechConfig.FromSubscription(subscription, region);
-            config.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Audio24Khz96KBitRateMonoMp3);
-            using var audioConfig = AudioConfig.FromWavFileOutput(System.AppDomain.CurrentDomain.BaseDirectory + @"hello.mp3"); //Path to File
+            //config.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Audio24Khz96KBitRateMonoMp3);
+            using var audioConfig = AudioConfig.FromWavFileOutput(System.AppDomain.CurrentDomain.BaseDirectory + @"hello.wav"); //Path to File
             using var synthesizer = new SpeechSynthesizer(config, audioConfig); //using for saving a file
             //using var synthesizer = new SpeechSynthesizer(config); //using without saving a file
 

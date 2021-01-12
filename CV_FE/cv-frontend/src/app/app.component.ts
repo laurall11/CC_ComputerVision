@@ -17,7 +17,6 @@ onFileUpload(files: Event){
   this.fileToUpload = files.target;
   this.fileToUpload = this.fileToUpload.files.item(0);
 
-  //immediately display image on page after selecting
   var reader = new FileReader();
 
   reader.onload = function (e) {
@@ -28,62 +27,33 @@ onFileUpload(files: Event){
 
   reader.readAsDataURL(this.fileToUpload);
 
-  console.log(this.fileToUpload);
   this.uploadService
     .upload(this.fileToUpload)
     .subscribe(result => {
-
-      console.log(result);
-      
-      //GET REQUEST?
-
       this.getFiles();
-
-       var audioCtx = new window.AudioContext();
-         var hm = audioCtx.decodeAudioData(result.proto).then(function (decodedData) {
-           console.log(decodedData);
-         });
-
-       this.resultFiles.push(result)
     });
     }
-    
-     test(files: { target: any; }) {
-      
-       let buffer = new ArrayBuffer(1210892);
-       let audioCtx = new window.AudioContext();
-       var source = audioCtx.createBufferSource();
-      
-       this.fileToUpload = files.target;
-       this.fileToUpload = this.fileToUpload.files.item(0);
-
-    
-       let reader = new FileReader();
-      
-    
-       reader.readAsArrayBuffer(this.fileToUpload);
-
-       reader.onload = function() {
-         buffer = reader.result as ArrayBuffer;
-         audioCtx.decodeAudioData(buffer, function (buff) {
-           console.log(buff);
-           source.buffer = buff;
-           source.connect(audioCtx.destination);
-           source.loop = true;
-           source.start(0);
-       });
-      
-       reader.onerror = function() {
-         console.log(reader.error);
-       };
-     }
-   }
 
   getFiles() {
     this.uploadService
       .upload2()
       .subscribe(getResult => {
-        console.log(getResult);
+        let reader = new FileReader();
+        let audioCtxx = new window.AudioContext();
+        var source = audioCtxx.createBufferSource();
+
+        reader.readAsArrayBuffer(getResult);
+        reader.onload = function () {
+          console.log(reader.result);
+          var bufferr = reader.result as ArrayBuffer;
+          audioCtxx.decodeAudioData(bufferr, function (buff) {
+            source.buffer = buff;
+            source.connect(audioCtxx.destination);
+            source.loop = true;
+            source.start(0);
+          });
+        }
+
       });
   }
   }
