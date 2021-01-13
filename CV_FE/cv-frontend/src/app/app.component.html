@@ -22,10 +22,10 @@
         margin-top: 1em;
     }
     
-    p {
+    p#info {
         margin-top: 0;
-        font-size: 14pt;
         margin-bottom: 0.5em;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
     
     .toolbar {
@@ -166,14 +166,14 @@
 
     <!-- Upload -->
     <h1>Bild Upload</h1>
-    <p>Lade dein Bild hier hoch, um eine Analyse von Azure Vision zu erhalten. (Bild muss aufgrund von Beschränkungen von Microsoft kleiner als 4MB sein)</p>
+    <p style="font-size: 14pt;">Lade dein Bild hier hoch, um eine Analyse von Azure Vision zu erhalten.  (Bild muss aufgrund von Beschränkungen von Microsoft kleiner als 4MB sein)</p>
 
     <div class="card-container">
         <input type="file" accept="image/*" name="uploadfile" id="img-upload" (change)="onFileUpload($event)" style="display: none;" />
         <button id="upload-btn"><label for="img-upload">Upload starten</label></button>
     </div>
-    <div class="card-container" id="loadingNotif" style="display: none;">
-        <p>Ihr Audio wird geladen...</p>
+    <div class="card-container" id="loadingNotif">
+        <p id="info" style="font-size: 14pt;"></p>
     </div>
     <div class="card-container" id="audioDiv">
     </div>
