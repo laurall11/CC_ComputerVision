@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>CC.AzureVision.REST_API</RootNamespace>
+    <UserSecretsId>95f3bf0b-947d-406b-8cc0-c5dd647d0ec2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
