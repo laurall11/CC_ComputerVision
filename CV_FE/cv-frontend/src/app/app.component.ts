@@ -29,18 +29,18 @@ onFileUpload(files: Event){
     lastAudio.remove();
   }
 
-  //show loading text
-  var loadingNotif: HTMLParagraphElement = document.getElementById('loadingNotif') as HTMLParagraphElement;
-  loadingNotif.setAttribute('style', 'font-size: 14pt;');
-  loadingNotif.textContent = "Ihr Bild wird analysiert...";
-
+  
   //get file out of filearray
   this.fileToUpload = files.target;
   this.fileToUpload = this.fileToUpload.files.item(0);
-
+  
   //check if image is too big
   if (this.fileToUpload.size < 4194304 || this.fileToUpload < 1) {
-
+    
+    //show loading text
+    var loadingNotif: HTMLParagraphElement = document.getElementById('loadingNotif') as HTMLParagraphElement;
+    loadingNotif.setAttribute('style', 'font-size: 14pt;');
+    loadingNotif.textContent = "Ihr Bild wird analysiert...";
     
     //show uploaded image immediately
     var reader = new FileReader();
@@ -62,7 +62,10 @@ onFileUpload(files: Event){
       this.getAudio();
     });
   } else {
-    console.log("Image is too big");
+        //show loading text
+        var loadingNotif: HTMLParagraphElement = document.getElementById('loadingNotif') as HTMLParagraphElement;
+        loadingNotif.setAttribute('style', 'font-size: 14pt;');
+        loadingNotif.textContent = "Ihr Bild ist zu groß...";
   }
   }
   
