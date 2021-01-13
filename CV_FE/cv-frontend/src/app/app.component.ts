@@ -20,12 +20,13 @@ onFileUpload(files: Event){
   this.fileToUpload = files.target;
   this.fileToUpload = this.fileToUpload.files.item(0);
 
+  //shoe image immediately
   var reader = new FileReader();
 
   reader.onload = function (e) {
     var img = document.getElementById('img-prev');
     img?.setAttribute('src', e.target?.result as string);
-    img?.setAttribute('style', 'max-height: 500px; max-width: 500px;');
+    img?.setAttribute('style', 'display:none;');
   }
 
   reader.readAsDataURL(this.fileToUpload);
@@ -47,6 +48,8 @@ onFileUpload(files: Event){
         var textField = document.getElementById("description");
         if (textField != null)
         textField.innerText = resultDescription;
+        var img = document.getElementById('img-prev');
+      img?.setAttribute('style', 'display: initial; max-height: 500px; max-width: 500px;');
 
     });
 
@@ -66,7 +69,7 @@ onFileUpload(files: Event){
             source.buffer = buff;
             source.connect(audioCtxx.destination);
             //audioplayer.src = buff;
-            //source.start(0);
+            source.start(0);
             document.getElementById('loadingNotif')?.setAttribute('style', 'display: none');
           });
         }

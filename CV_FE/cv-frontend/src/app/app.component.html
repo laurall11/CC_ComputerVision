@@ -126,6 +126,14 @@
         font-weight: bold;
         background-color: #99aebd;
     }
+    
+    img#img-prev {
+        padding: 15px;
+    }
+    
+    p#description {
+        padding: 15px;
+    }
     /* Responsive Styles */
     
     @media screen and (max-width: 767px) {
@@ -173,8 +181,8 @@
                 Sorry - Ihr Browser hat keine Unterstützung für dieses Audio-Format.
             </audio>
     </div>
-    <div class="card-container">
+    <div class="card-container" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center;">
         <img id="img-prev" />
-        <p id="description"></p>
+        <p id="description" align="justify"></p>
     </div>
 </div>
