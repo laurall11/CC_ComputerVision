@@ -71,14 +71,12 @@ onFileUpload(files: Event){
             source.connect(audioCtxx.destination);
             console.log(audioplayer);
 
-
             //create src element
             const url = window.URL.createObjectURL(getResult);
 
             var sourcee = document.createElement('source');
             sourcee.src = url;
 
-            //audioplayer.src = url;
             audio?.appendChild(sourcee);
             audio?.setAttribute('style', 'display: initial;');
             document.getElementById('loadingNotif')?.setAttribute('style', 'display: none');
