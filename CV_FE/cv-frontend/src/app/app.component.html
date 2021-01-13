@@ -169,7 +169,7 @@
     <p style="font-size: 14pt;">Lade dein Bild hier hoch, um eine Analyse von Azure Vision zu erhalten.</p>
 
     <div class="card-container">
-        <input type="file" name="uploadfile" id="img-upload" (change)="onFileUpload($event)" style="display: none;" />
+        <input type="file" accept="image/*" name="uploadfile" id="img-upload" (change)="onFileUpload($event)" style="display: none;" />
         <button id="upload-btn"><label for="img-upload">Upload starten</label></button>
     </div>
     <div class="card-container" id="loadingNotif">
