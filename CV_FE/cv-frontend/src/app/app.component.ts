@@ -59,6 +59,7 @@ onFileUpload(files: Event){
         let reader = new FileReader();
         let audioCtxx = new window.AudioContext();
         var source = audioCtxx.createBufferSource();
+        var audio = document.getElementById('audioPlayer');
         var audioplayer = document.getElementById('audioSrc');
 
         reader.readAsArrayBuffer(getResult);
@@ -68,8 +69,18 @@ onFileUpload(files: Event){
           audioCtxx.decodeAudioData(buffer, function (buff) {
             source.buffer = buff;
             source.connect(audioCtxx.destination);
-            //audioplayer.src = buff;
-            source.start(0);
+            console.log(audioplayer);
+
+
+            //create src element
+            const url = window.URL.createObjectURL(getResult);
+
+            var sourcee = document.createElement('source');
+            sourcee.src = url;
+
+            //audioplayer.src = url;
+            audio?.appendChild(sourcee);
+            audio?.setAttribute('style', 'display: initial;');
             document.getElementById('loadingNotif')?.setAttribute('style', 'display: none');
           });
         }
