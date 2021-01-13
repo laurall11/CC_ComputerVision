@@ -36,41 +36,48 @@ onFileUpload(files: Event){
   this.fileToUpload = files.target;
   this.fileToUpload = this.fileToUpload.files.item(0);
 
-  //show uploaded image immediately
-  var reader = new FileReader();
+  //check if image is too big
+  if (this.fileToUpload.size < 4194304 || this.fileToUpload < 1) {
 
-  reader.onload = function (e) {
-    var img = document.getElementById('img-prev');
-    img?.setAttribute('src', e.target?.result as string);
-    img?.setAttribute('style', 'display:none;');
-  }
-
-  reader.readAsDataURL(this.fileToUpload);
-
-  //send image to backend
-  this.uploadService
+    
+    //show uploaded image immediately
+    var reader = new FileReader();
+    
+    reader.onload = function (e) {
+      var img = document.getElementById('img-prev');
+      img?.setAttribute('src', e.target?.result as string);
+      img?.setAttribute('style', 'display:none;');
+    }
+    
+    reader.readAsDataURL(this.fileToUpload);
+    
+    //send image to backend
+    this.uploadService
     .upload(this.fileToUpload)
     .subscribe(result => {
-
+      
       //get created audio
       this.getAudio();
     });
-    }
-
-
+  } else {
+    console.log("Image is too big");
+  }
+  }
+  
+  
   getAudio() {
-
+    
     this.uploadService
     .downloadDescrition()
     .subscribe(resultDescription => {
       console.log(resultDescription);
-
-        var textField = document.getElementById("description");
-        if (textField != null)
-        textField.innerText = resultDescription;
-        var img = document.getElementById('img-prev');
+      
+      var textField = document.getElementById("description");
+      if (textField != null)
+      textField.innerText = resultDescription;
+      var img = document.getElementById('img-prev');
       img?.setAttribute('style', 'display: initial; max-height: 500px; max-width: 500px;');
-
+      
     });
 
     this.uploadService
