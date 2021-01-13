@@ -21,11 +21,6 @@ namespace CC.AzureVision.REST_API.Controllers
     {
         private static string resultString;
 
-        [Microsoft.AspNetCore.Mvc.HttpGet("/api/AzureVision")]
-        public void Test()
-        {
-            //starting route
-        }
 
         [Microsoft.AspNetCore.Mvc.HttpGet("/api/getAudio")]
         public Task SendAudio()

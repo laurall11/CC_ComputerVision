@@ -17,13 +17,10 @@ namespace CC.AzureVision.REST_API
     public class Program
     {
         // Add your Computer Vision subscription key and endpoint
-        public static string subscriptionKey = "78556231cd4c409a928718285db5316c";
-        public static string endpoint = "https://ccsp.cognitiveservices.azure.com/";
+        public static string subscriptionKey = "VISION SUBSCRIPTIONKEY";
+        public static string endpoint = "ENDPOINT";
         public static ImageAnalysis result;
 
-        // URL image used for analyzing an image (image of puppy)
-        private const string ANALYZE_URL_IMAGE = "C:\\Users\\Flo\\Downloads\\test.jpg";
-        private const string ANALYZE_LOCAL_IMAGE = "C:\\Users\\Flo\\Downloads\\wieso.jpg";
 
 
         public static void Main(string[] args)
@@ -34,8 +31,6 @@ namespace CC.AzureVision.REST_API
 
             // Create a client
             ComputerVisionClient client = Authenticate(endpoint, subscriptionKey);
-
-            // AnalyzeLocalImageFromApi(ANALYZE_LOCAL_IMAGE);
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -216,31 +211,7 @@ namespace CC.AzureVision.REST_API
          * Analyze URL image. Extracts captions, categories, tags, objects, faces, racy/adult content,
          * brands, celebrities, landmarks, color scheme, and image types.
          */
-        public static async Task AnalyzeImageUrl(ComputerVisionClient client, string imageUrl)
-        {
-            Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("ANALYZE IMAGE - URL");
-            Console.WriteLine();
-
-            // Creating a list that defines the features to be extracted from the image. 
-
-            List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
-            {
-                VisualFeatureTypes.Categories, VisualFeatureTypes.Description,
-                VisualFeatureTypes.Faces, VisualFeatureTypes.ImageType,
-                VisualFeatureTypes.Tags, VisualFeatureTypes.Adult,
-                VisualFeatureTypes.Color, VisualFeatureTypes.Brands,
-                VisualFeatureTypes.Objects
-            };
-
-            Console.WriteLine($"Analyzing the image {Path.GetFileName(imageUrl)}...");
-            Console.WriteLine();
-            // Analyze the URL image 
-            ImageAnalysis results = await client.AnalyzeImageAsync(imageUrl, features);
-
-            Console.WriteLine(results);
-        }
-
+        
         public static async Task AnalyzeImageLocal(ComputerVisionClient client, string imageLocal)
         {
             Console.WriteLine("----------------------------------------------------------");
@@ -275,7 +246,7 @@ namespace CC.AzureVision.REST_API
 
         static async Task SynthesizeAudioAsync(string toRead)
         {
-            string subscription = "9452bdccf9f54506afb6c7affd3067bd";
+            string subscription = "COGNITIVE SUBSCRIPTION KEY";
             string region = "westeurope";
             var config = SpeechConfig.FromSubscription(subscription, region);
             //config.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Audio24Khz96KBitRateMonoMp3);
