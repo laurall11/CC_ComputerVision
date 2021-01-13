@@ -30,7 +30,9 @@ onFileUpload(files: Event){
   }
 
   //show loading text
-  document.getElementById('loadingNotif')?.setAttribute('style', 'display: initial');
+  var loadingNotif: HTMLParagraphElement = document.getElementById('loadingNotif') as HTMLParagraphElement;
+  loadingNotif.setAttribute('style', 'font-size: 14pt;');
+  loadingNotif.textContent = "Ihr Bild wird analysiert...";
 
   //get file out of filearray
   this.fileToUpload = files.target;
@@ -105,7 +107,9 @@ onFileUpload(files: Event){
 
             audioPlayer?.appendChild(sourcee);
             audiodiv?.appendChild(audioPlayer);
-            document.getElementById('loadingNotif')?.setAttribute('style', 'display: none');
+            var loadingNotif : HTMLParagraphElement = document.getElementById('loadingNotif') as HTMLParagraphElement;
+            loadingNotif.setAttribute('style', 'font-size: 14pt;');
+            loadingNotif.textContent = "Klicken Sie auf die drei Punkte, um das Audio herunter zu laden!";
           });
         }
       });
