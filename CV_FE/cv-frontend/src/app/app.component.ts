@@ -75,12 +75,10 @@ onFileUpload(files: Event){
     this.uploadService
     .downloadDescrition()
     .subscribe(resultDescription => {
-      console.log(resultDescription);
-      
-      var textField = document.getElementById("description");
-      if (textField != null)
-      textField.innerText = resultDescription;
-      var img = document.getElementById('img-prev');
+        var textField = document.getElementById("description");
+        if (textField != null)
+        textField.innerText = resultDescription;
+        var img = document.getElementById('img-prev');
       img?.setAttribute('style', 'display: initial; max-height: 500px; max-width: 500px;');
       
     });
@@ -95,7 +93,6 @@ onFileUpload(files: Event){
 
         reader.readAsArrayBuffer(getResult);
         reader.onload = function () {
-          console.log(reader.result);
           var buffer = reader.result as ArrayBuffer;
           audioCtxx.decodeAudioData(buffer, function (buff) {
             source.buffer = buff;
@@ -112,7 +109,6 @@ onFileUpload(files: Event){
             const url = window.URL.createObjectURL(getResult);
 
             var sourcee = document.createElement('source');
-
             sourcee.src = url;
 
             audioPlayer?.appendChild(sourcee);
