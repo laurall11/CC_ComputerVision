@@ -1,4 +1,5 @@
 # CC_ComputerVision
+Team : Federhofer, Legat, Rathbauer
 
 ## Setup
 1. Download Node.js von https://nodejs.org/en/download/
