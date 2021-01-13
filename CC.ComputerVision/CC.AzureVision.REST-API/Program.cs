@@ -246,7 +246,7 @@ namespace CC.AzureVision.REST_API
 
         static async Task SynthesizeAudioAsync(string toRead)
         {
-            string subscription = "COGNITIVE SUBSCRIPTION KEY";
+            string subscription = "COGNITIVE AUDIO SUBSCRIPTIONKEY";
             string region = "westeurope";
             var config = SpeechConfig.FromSubscription(subscription, region);
             //config.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Audio24Khz96KBitRateMonoMp3);
