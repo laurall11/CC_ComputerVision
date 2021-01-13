@@ -5,7 +5,7 @@
 2. In der Konsole den Befehl **npm install -g @angular/cli**
 
 ## Starten des Frontends
-In der Konsole zu cv-frontend navigieren mittels **cd** und im cv-frontend **ng serve** ausführen.
+In der Konsole mit dem Befehl **cd** zum Ordner cv-frontend navigieren und dort **ng serve** ausführen.
  
 ## Starten des Backendes
 Die Datei **CC.AzureVision.REST-API.exe** ausführen. 
